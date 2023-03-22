@@ -1,11 +1,12 @@
 import network
 import time
+import config as c
 
 
-def connect_to_wifi(ssid, password):
+def connect_to_wifi():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
-    wlan.connect(ssid, password)
+    wlan.connect(c.ssid, c.password)
 
     # Wait for connect or fail
     max_wait = 10
@@ -26,12 +27,12 @@ def connect_to_wifi(ssid, password):
     return wlan
 
 
-def handle_connection_error(ssid, password, wlan):
+def handle_connection_error(wlan):
     print("could not connect")
     if wlan.status() < 0 or wlan.status() >= 3:
         print("trying to reconnect...")
         wlan.disconnect()
-        wlan.connect(ssid, password)
+        wlan.connect(c.ssid, c.password)
         if wlan.status() == 3:
             print('connected')
         else:
