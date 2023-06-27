@@ -6,7 +6,7 @@ import config as c
 def send_notif():
 
     headers = {
-        "Authorization": "Bearer " + c.auth_token,
+        "Access-Token": c.auth_token,
         "Content-Type": "application/json"
     }
 
