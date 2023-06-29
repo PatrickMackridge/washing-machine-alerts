@@ -3,6 +3,15 @@ import notification
 import time
 
 
+def is_finished(vibrate):
+    for i in range(300):
+        if vibrate.value() == 0:
+            return False
+        else:
+            time.sleep(1)
+    return True
+
+
 def run():
     running = False
     finished = False
@@ -13,15 +22,11 @@ def run():
             running = True
         while running:
             if vibrate.value() == 0:
-                print("washing...")
                 time.sleep(1)
             else:
-                time.sleep(300)
-                if vibrate.value() == 1:
-                    print("Washing Done!")
-                    running = False
+                finished = is_finished(vibrate)
+                if finished:
+                    print('Washing Done!')
                     notification.send_notif()
-                    finished = True
-                    break
-    if finished:
-        return
+                    running = False
+    return
